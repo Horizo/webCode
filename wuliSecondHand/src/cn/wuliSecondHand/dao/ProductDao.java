@@ -18,10 +18,10 @@ public class ProductDao {
 	// 添加商品
 	public void addProduct(Product p) throws SQLException {
 
-		String sql = "insert into product values(?,?,?,?,?,?)";
+		String sql = "insert into product values(?,?,?,?,?,?,?,?,?)";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		runner.update(sql, p.getId(), p.getTitle(), p.getPrice(),
-				p.getCategory(), p.getImgurl(), p.getDescription());
+				p.getCategory(), p.getImgurl(), p.getDescription(), p.getSchoolarea(), p.getIsbargain(), p.getIschange());
 	}
 
 	// 查找所有商品
@@ -61,11 +61,11 @@ public class ProductDao {
 		Object[] obj = null;
 		// 如果category不为null,代表是按分类查找
 		if (!"全部商品".equals(category)) {
-			sql = "select * from products  where category=? limit ?,?";
+			sql = "select * from product  where category=? limit ?,?";
 			obj = new Object[] { category, (currentPage - 1) * currentCount,
 					currentCount, };
 		} else {
-			sql = "select * from products  limit ?,?";
+			sql = "select * from product  limit ?,?";
 			obj = new Object[] { (currentPage - 1) * currentCount,
 					currentCount, };
 		}
@@ -76,7 +76,7 @@ public class ProductDao {
 
 	// 根据id查找商品
 	public Product findProductById(String id) throws SQLException {
-		String sql = "select * from products where id=?";
+		String sql = "select * from product where id=?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		return runner.query(sql, new BeanHandler<Product>(Product.class), id);
 	}
@@ -145,7 +145,7 @@ public class ProductDao {
 	public List<Product> findBookByName(int currentPage, int currentCount,
 			String searchfield) throws SQLException {
 		//根据名字模糊查询图书
-		String sql = "SELECT * FROM products WHERE name LIKE '%"+searchfield+"%' LIMIT ?,?";
+		String sql = "SELECT * FROM product WHERE name LIKE '%"+searchfield+"%' LIMIT ?,?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 //		//用于分页查询的数据
 //		Object obj = new Object[] { (currentPage - 1) * currentCount, currentCount };
@@ -155,7 +155,7 @@ public class ProductDao {
 
 	//前台搜索框，根据书名模糊查询出的图书总数量
 	public int findBookByNameAllCount(String searchfield) throws SQLException {
-		String sql = "SELECT COUNT(*) FROM products WHERE name LIKE '%"+searchfield+"%'";
+		String sql = "SELECT COUNT(*) FROM product WHERE name LIKE '%"+searchfield+"%'";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		//查询出满足条件的总数量，为long类型
 		Long count = (Long)runner.query(sql, new ScalarHandler());
@@ -164,7 +164,7 @@ public class ProductDao {
 
 	//后台系统，根据id删除商品信息
 	public void deleteProduct(String id) throws SQLException {
-		String sql = "DELETE FROM products WHERE id = ?";
+		String sql = "DELETE FROM product WHERE id = ?";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		runner.update(sql, id);
 	}

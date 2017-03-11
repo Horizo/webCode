@@ -3,6 +3,7 @@ package cn.wuliSecondHand.servlet;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,7 @@ import cn.wuliSecondHand.exception.AddProductException;
 import cn.wuliSecondHand.service.ProductService;
 import cn.wuliSecondHand.utils.FileUploadUtils;
 import cn.wuliSecondHand.utils.IdUtils;
+import net.sf.json.JSONObject;
 
 /**
  * 后台系统
@@ -46,6 +48,8 @@ public class AddProductServlet extends HttpServlet {
 		Map<String, String> map = new HashMap<String, String>();
 		// 封装商品id
 		map.put("id", IdUtils.getUUID());
+		
+		PrintWriter out = response.getWriter();
 
 		DiskFileItemFactory dfif = new DiskFileItemFactory();
 		// 设置临时文件存储位置
@@ -82,7 +86,7 @@ public class AddProductServlet extends HttpServlet {
 					String randomDir = FileUploadUtils
 							.generateRandomDir(randomName);
 					// 图片存储父目录
-					String imgurl_parent = "/productImg" + randomDir;
+					String imgurl_parent = "productImg" + randomDir;
 
 					File parentDir = new File(this.getServletContext()
 							.getRealPath(imgurl_parent));
@@ -105,7 +109,6 @@ public class AddProductServlet extends HttpServlet {
 
 		} catch (FileUploadException e) {
 			e.printStackTrace();
-
 		}
 
 		try {
@@ -121,12 +124,13 @@ public class AddProductServlet extends HttpServlet {
 		try {
 			// 调用service完成添加商品操作
 			service.addProduct(p);
-			response.sendRedirect(request.getContextPath()
-					+ "/listProduct");
+			out.write("{\"errCode\":0,\"errMsg\":\"发布成功^_^\"}"); 
+			//response.sendRedirect(request.getContextPath()
+					//+ "/listProduct");
 			return;
 		} catch (AddProductException e) {
 			e.printStackTrace();
-			response.getWriter().write("添加商品失败");
+			out.print("{\"errCode\":1,\"errMsg\":\"发布失败-_-\"}");
 			return;
 		}
 

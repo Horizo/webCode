@@ -13,7 +13,7 @@
 	
 	<servlet>
 		<servlet-name>LoginServlet</servlet-name>
-		<servlet-class>cn.itcast.bookStore.web.servlet.client.LoginServlet</servlet-class>
+		<servlet-class>cn.wuliSecondHand.servlet.LoginServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>LoginServlet</servlet-name>

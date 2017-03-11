@@ -31,13 +31,33 @@ public class Product implements Serializable{
 	 * 是否以物换物
 	 */
 	private String ischange;
-	
+	/**
+	 * 校区
+	 */
+	private String schoolarea;
 	/**
 	 * 图片路径
 	 */
 	private String imgurl;
 	
-	
+	public String getSchoolarea() {
+		return schoolarea;
+	}
+	public void setSchoolarea(String schoolarea) {
+		this.schoolarea = schoolarea;
+	}
+	public String getIsbargain() {
+		return isbargain;
+	}
+	public void setIsbargain(String isbargain) {
+		this.isbargain = isbargain;
+	}
+	public String getIschange() {
+		return ischange;
+	}
+	public void setIschange(String ischange) {
+		this.ischange = ischange;
+	}
 	public String getId() {
 		return id;
 	}
@@ -71,7 +91,7 @@ public class Product implements Serializable{
 	public String getImgurl() {
 		return imgurl;
 	}
-	public void setImgurl1(String imgurl) {
+	public void setImgurl(String imgurl) {
 		this.imgurl = imgurl;
 	}
 }

@@ -59,6 +59,14 @@ body{
             background: #f4ce49;
             outline: none;
         }
+		.login-btn:hover
+		{
+			background:#FF0;
+		}
+		.login-btn:active
+		{
+			background:#0F0;
+		}
         input[type='submit'],
         input[type='reset']{
             -webkit-appearance: none;
