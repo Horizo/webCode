@@ -53,6 +53,10 @@ public class LoginServlet extends HttpServlet {
 		boolean flag = client.httpPostRequest("http://sso.jwc.whut.edu.cn/Certification/login.do?"
 		+"systemId=&xmlmsg=&userName="+userName+"&password="+password+"&type=xs&imageField.x=60&imageField.y=20");
 		if(flag){
+			User user = new User();
+			user.setName(userName);
+			user.setPassword(password);
+			request.getSession().setAttribute("user", user);
 			out.write("true");
 			return;
 		}

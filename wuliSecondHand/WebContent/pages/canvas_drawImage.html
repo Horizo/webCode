@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>canvas draImage</title>
+</head>
+<input id="img" onChange="changeBG(this)" type="file" name="img" multiple>
+<canvas id="canvas" width="100px" height="100px"></canvas>
+<body>
+</body>
+<script>
+function changeBG()
+{
+	var canvas = document.getElementById("canvas"),  
+        context = canvas.getContext("2d");
+	var img= new Image();
+	var reader = new FileReader();
+	var imgfile=document.getElementById("img").files[0];
+	alert(imgfile);
+	reader.onload=function()   //加载完成后，执行readAsDataURL
+	{
+		var url=reader.result;
+		img.src=url;
+	}
+	img.onload=function()
+	{
+		var w=img.naturalWidth;
+		var h=img.naturalHeight;
+		context.drawImage(img, 0, 0, 100, 100);
+	}
+	reader.readAsDataURL(imgfile);
+}
+</script>
+</html>

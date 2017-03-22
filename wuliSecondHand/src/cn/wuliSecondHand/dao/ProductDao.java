@@ -1,6 +1,7 @@
 package cn.wuliSecondHand.dao;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +19,10 @@ public class ProductDao {
 	// 添加商品
 	public void addProduct(Product p) throws SQLException {
 
-		String sql = "insert into product values(?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into product values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
 		runner.update(sql, p.getId(), p.getTitle(), p.getPrice(),
-				p.getCategory(), p.getImgurl(), p.getDescription(), p.getSchoolarea(), p.getIsbargain(), p.getIschange());
+				p.getCategory(), p.getImgurl(), p.getDescription(), p.getSchoolarea(), p.getIsbargain(),p.getWechat(),p.getQq(),p.getTelnum(), p.getIschange(),new Timestamp(System.currentTimeMillis()));
 	}
 
 	// 查找所有商品
@@ -141,7 +142,7 @@ public class ProductDao {
 
 	}
 
-	//前台，用于搜索框根据书名来模糊查询相应的图书
+	//前台，用于搜索框根据书名来模糊查询相应的商品
 	public List<Product> findBookByName(int currentPage, int currentCount,
 			String searchfield) throws SQLException {
 		//根据名字模糊查询图书
